@@ -64,11 +64,11 @@ void display(int k)		//to display the grid
 					{
 						if(a[i][j]!='#')
 						{
-							printf("| %c |",a[i][j]); //display contents of chars stored in a
+							printf("| %c |",a[i][j]); //display contents of chars stored in ‘a’
 						}
 						else
 						{
-							printf("|   |"); //displays space if a tile isn’t placed
+							printf("|   |"); //displays space if a piece isn’t placed
 						}
 					}
 					printf("|\n");
@@ -87,7 +87,7 @@ void put(int n, char x)		//to put the coin
 }
 
 
-void init()		//to initialise the grid for new game
+void init()		//to initialize the grid for new game
 {
 	int i,j;
 	for(i=0; i<7; ++i)
@@ -103,30 +103,30 @@ void init()		//to initialise the grid for new game
 int vert(int x, int y, char z)		//to check vertically if there is a winning combination
 {
 	int i=x,j=y,k=0,u;
-	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6)) //check through every char as you sweep through every matrix entry
 	{
-		i++;
-		k++;
+		i++; 			//look through every column by going to next one
+		k++; 			//k = 1 indicates one piece, k = 4 means there are 4 consecutive pieces
 	}
-	i=x-1;
-	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+	i=x-1; 				//initialize i to hold previous value of x
+	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6)) //check previous entry’s char in similar fashion as before
 	{
-		i--;
-		k++;
+		i--; 			//reduce column number
+		k++; 			//adds value to k if the previous value is valid
 	}
 	i=x;j=y;
-	if(k==4)
+	if(k==4)  	//cond statement for when there are 4 consecutive pieces in a column
 	{
 		count=4;
-		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6)) //while iterating through all rows and columns when they’re under 7
 		{
-			a[i][j]='#';
+			a[i][j]='#';  // add # sign to change state of tile to indicate win
 			i++;
 		}
-		i=x-1;
+		i=x-1;//initialize i to hold previous value of x, instead of current
 		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
 		{
-			a[i][j]='#';
+			a[i][j]='#';   // add # to indicate location of previous winning tile’s position
 			i--;
 		}
 	}
@@ -136,114 +136,114 @@ int vert(int x, int y, char z)		//to check vertically if there is a winning comb
 int horz(int x, int y, char z)		//to check horizontally if there is a winning combination
 {
 	int i=x,j=y,k=0;
-	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))  //check through every char as you sweep through every matrix entry
 	{
-		j++;
-		k++;
+		j++;			//look through every row by going to next one
+		k++;			//k = 1 indicates one piece, k = 4 means there are 4 consecutive pieces
 	}
-	j=y-1;
+	j=y-1;   			//initialize j to hold previous value of y
 	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
 	{
-		j--;
-		k++;
+		j--;			//look at previous row to ensure valid piece
+		k++;			// adds value to k if the previous entry is valid
 	}
 
 	i=x;j=y;
-	if(k==4)
+	if(k==4)    //cond statement for when there are 4 consecutive pieces in a row
 	{	
 		count=4;
-		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))   //check through every char a 
 		{
-			a[i][j]='#';
-			j++;
+			a[i][j]='#';	//indicate winning piece’s state by changing it to #
+			j++;		//check next row
 		}
 		j=y-1;
-		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6)) //checking thorough previous values of char in every row
 		{
-			a[i][j]='#';
-			j--;
+			a[i][j]='#';     //indicate previous piece’s state by changing it to #
+			j--;		//reduce value of row
 		}
 	}		
-	return k;
+	return k;  //is there a winner? yes, if k = 4
 	
 }
 
 int left(int x, int y, char z)		//to check the left diagonal if there is a winning combination
 {
 	int i=x,j=y,k=0;
-	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))  //increment through all values in 7x7 matrix
 	{
-		i++;
-		j++;
-		k++;
+		i++;    	//indicate that column variable is a incr.
+		j++;		//row values needs to incr. to make diagonal 
+		k++;		//add another piece value to k if the previous entry is valid
 	}
-	i=x-1;
-	j=y-1;
-	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+	i=x-1;			// get state of previous columns
+	j=y-1;			// get state of previous rows
+	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))  //check all characters in 7x7 matrix
 	{
-		i--;
-		j--;
-		k++;
+		i--;		//reduce value of column
+		j--;		//row reduced to continue checking diagonal
+		k++;		//adds value to k if the previous value is valid
 	}
 	i=x;j=y;
-	if(k==4)
+	if(k==4)    //cond statement for when there are 4 consecutive pieces in a left diagonal
 	{
 		count=4;
-		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))   //increment through all characters to look for winning combo
 		{
-			a[i][j]='#';
-			i++;
-			j++;
+			a[i][j]='#';    //when you find a valid entry, change to #
+			i++;		//check next column’s value
+			j++;		//check next row 
 		}
-		i=x-1;
-		j=y-1;
-		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+		i=x-1;   		//set i to previous x values
+		j=y-1;			//set j to prev y 
+		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))   //check all previous characters
 		{
-			a[i][j]='#';
-			i--;
-			j--;
+			a[i][j]='#';	//if valid, change entry to #
+			i--;		//check previous column
+			j--;		//check previous row
 		}
 	}
-	return k;
+	return k; //check if value of k is 4 yet
 }
 
 int right(int x, int y, char z)		//to check right diagonal if there is a winning combination
 {
 	int i=x,j=y,k=0;
-	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
+	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6)) //for checking right diagonals, follow same format EXCEPT:
 	{
-		i++;
-		j--;
+		i++;			//check values of columns in ascending order
+		j--;			//check values of row in descending order
 		k++;
 	}
-	i=x-1;
-	j=y+1;
+	i=x-1;		//get previous values
+	j=y+1;		//get next values
 	while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
 	{
-		i--;
+		i--;			//do inverse of algorithm above, follow symmetry from before
 		j++;
 		k++;
 	}
 	i=x;j=y;	
-	if(k==4)
+	if(k==4)		//cond statement asserted when there are 4 consecutive pieces in a right diagonal 
 	{
 		count=4;
 		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
 		{
-			a[i][j]='#';			
-			i++;
-			j--;
+			a[i][j]='#';		//replace winning pieces by #	
+			i++;			//increment column to replace next piece
+			j--;			//decrement row to continue diagonal replacement
 		}
-		i=x-1;
-		j=y+1;
+		i=x-1;			//previous value check for column
+		j=y+1;			//next value check for row
 		while(a[i][j]==z&&(i>=0 && i<=6)&&(j>=0 && j<=6))
 		{
-			a[i][j]='#';
-			i--;
-			j++;
+			a[i][j]='#';     //replace winning piece’s value
+			i--;		//continue checking previous column values
+			j++;		//continue looking for diagonal
 		}
 	}
-	return k;
+	return k;  //checks when k is anywhere from 0 to 4
 }
 
 int win(int x)		//to display the winning counter
