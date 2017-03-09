@@ -23,7 +23,7 @@ void display(int k)		//to display the grid
 		for(i=0; i<7; ++i) 
 		{
 			printf("\t\t|");
-			for(j=0; j<7; ++j) //continues filling up the grid with pieces
+			for(j=0; j<7; ++j) //continues filling up the grid tabs
 			{
 				printf("| %c |",a[i][j]);  //updates grid
 			}
@@ -32,7 +32,7 @@ void display(int k)		//to display the grid
 	}
 	if(k==4)		//for showing the winning combination(blink)
 	{
-		while(u<=10)		
+		while(u<=10) //there should be at most 10 user turns
 		{
 			system("clear"); //remove the grid
 			printf("\n\t\t\t    FOUR IN A ROW "); //display win message
@@ -41,16 +41,16 @@ void display(int k)		//to display the grid
 			printf("   %d ",i); //create 7 new spaces 
 			printf("\n");
 
-			if(u%2==0)
+			if(u%2==0) //cond. statement where u represents every other user’s turn
 			{
-				for(i=0; i<7; ++i)
+				for(i=0; i<7; ++i) //iterate through all rows
 				{
 					printf("\t\t|");
-					for(j=0; j<7; ++j)
+					for(j=0; j<7; ++j) //iterate through all columns
 					{
-						printf("| %c |",a[i][j]);
+						printf("| %c |",a[i][j]);  //display board contents
 					}
-					printf("|\n");
+					printf("|\n"); //start printing next row 
 				}
 
 				
@@ -64,26 +64,26 @@ void display(int k)		//to display the grid
 					{
 						if(a[i][j]!='#')
 						{
-							printf("| %c |",a[i][j]);
+							printf("| %c |",a[i][j]); //display contents of chars stored in a
 						}
 						else
 						{
-							printf("|   |");
+							printf("|   |"); //displays space if a tile isn’t placed
 						}
 					}
 					printf("|\n");
 				}
 			}
 			system("sleep 0.2");
-			u++;
+			u++;  //incr. user’s turn variable u to indicate next turn
 		}
 	}
 }
 
 void put(int n, char x)		//to put the coin
 {
-	a[top[n]][n]=x;
-	top[n]--;
+	a[top[n]][n]=x;  //checks the state of the top row, and stores value to x
+	top[n]--;  // if a coin is added, the top row’s nth column’s decreases
 }
 
 
@@ -92,10 +92,10 @@ void init()		//to initialise the grid for new game
 	int i,j;
 	for(i=0; i<7; ++i)
 	{
-		top[i]=6;
+		top[i]=6;  //top row resets values so it doesn’t hold any pieces
 		for(j=0; j<7; ++j)
 		{
-			a[i][j]=' ';
+			a[i][j]=' ';  //chars held by a are assigned matrix values from [0,0] to [7,7]
 		}
 	}
 }
