@@ -3,7 +3,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
+//variables i and j are used to increment through columns and rows of the game board’s 7x7 matrix 
+//variable k holds the value of the # of consecutive pieces of one kind
 
 int top[]={6,6,6,6,6,6,6},count; //initialize array to hold values of every spot in top row
 char a[7][7]; //7x7 matrix initialized to use for sweeping 
@@ -12,7 +13,7 @@ void menu(); //calls menu function at the end of this page
 
 void display(int k)		//to display the grid
 {
-	int i,j,u=0;   
+	int i,j,u=0;   //integers i and j represent column/row vectors, and and u is the user’s turn
 	system("clear");
 	printf("\n\t\t\t    FOUR IN A ROW ");
 	printf("\n\t\t\t    ==== == = === \n\t\t");
@@ -84,7 +85,7 @@ void display(int k)		//to display the grid
 void put(int n, char x)		//to put the coin
 {
 	a[top[n]][n]=x;  //checks the state of the top row, and stores value to x
-	top[n]--;  // if a coin is added, the top row’s nth column’s decreases
+	top[n]--;  // if a coin is added, the top row’s nth column’s # decreases
 }
 
 
@@ -96,11 +97,11 @@ void init()		//to initialize the grid for new game
 		top[i]=6;  //top row resets values so it doesn’t hold any pieces
 		for(j=0; j<7; ++j)
 		{
-			a[i][j]=' ';  //chars held by a are assigned matrix values from [0,0] to [7,7]
+			a[i][j]=' ';  //chars held by a are assigned matrix null values from [0,0] to [7,7]
 		}
 	}
 }
-
+//now, you need to sweep through values of i(columns) to check for vertical lines, and increment k if there’s a match for player’s piece
 int vert(int x, int y, char z)		//to check vertically if there is a winning combination
 {
 	int i=x,j=y,k=0,u;
@@ -133,7 +134,7 @@ int vert(int x, int y, char z)		//to check vertically if there is a winning comb
 	}
 	return k;
 }
-
+//now, you need to sweep through values of j(rows) to check for horizontal lines, and increment k if there’s a match for player’s piece
 int horz(int x, int y, char z)		//to check horizontally if there is a winning combination
 {
 	int i=x,j=y,k=0;
@@ -168,7 +169,7 @@ int horz(int x, int y, char z)		//to check horizontally if there is a winning co
 	return k;  //is there a winner? yes, if k = 4
 	
 }
-
+//now, you need to sweep through values of i(columns) and j(rows) synchronously to check for left diagonal lines, and increment k if there’s a match for player’s piece
 int left(int x, int y, char z)		//to check the left diagonal if there is a winning combination
 {
 	int i=x,j=y,k=0;
@@ -207,6 +208,7 @@ int left(int x, int y, char z)		//to check the left diagonal if there is a winni
 	}
 	return k; //check if value of k is 4 yet
 }
+//now, you need to sweep through values of i(columns) and j(rows) asynchronously to check for right diagonal lines, and incr. k if there’s a match for player’s piece
 
 int right(int x, int y, char z)		//to check right diagonal if there is a winning combination
 {
@@ -250,25 +252,25 @@ int right(int x, int y, char z)		//to check right diagonal if there is a winning
 int win(int x)		//to display the winning counter
 {
 	char z=a[top[x]+1][x];
-	if(left(top[x]+1,x,a[top[x]+1][x])==4)		//check winning condition of left diagonals
+	if(left(top[x]+1,x,a[top[x]+1][x])==4)		//check winning condition if left diagonals first
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
 		return 1;
 	}
-	else if(right(top[x]+1,x,a[top[x]+1][x])==4)    //check winning condition of right diagonals
+	else if(right(top[x]+1,x,a[top[x]+1][x])==4)    //check winning condition if right diagonal occurred
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
 		return 1;
 	}
-	else if(vert(top[x]+1,x,a[top[x]+1][x])==4)     //check winning condition of 4 consecutive in a column
+	else if(vert(top[x]+1,x,a[top[x]+1][x])==4)     //check winning condition if there were 4 consecutive in a column
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
 		return 1;
 	}
-	else if(horz(top[x]+1,x,a[top[x]+1][x])==4)     //check winning condition of 4 consecutive in a row
+	else if(horz(top[x]+1,x,a[top[x]+1][x])==4)     //check winning condition if there were 4 in a row
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
@@ -391,7 +393,7 @@ void menu()		//menu options
 	switch(i)
 	{
 		case 1: init(); start();break;		//only 4 different possible valid entries
-		case 2: play(); break;			//start game
+		case 2: play(); break;			//check rules
 		case 3: high(); break;			//check high scores
 		case 4: credits(); exit(0); break;	//who created code
 		default: printf(" \nInvalid Input!\n"); system("sleep 2");

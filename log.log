@@ -1,5 +1,6 @@
-c49ebc5 was Anand Ravichandran, 39 seconds ago, message: Added explanations for winning condition algorithms
-f472b30 was Anand Ravichandran, 88 minutes ago, message: Display the message indicating the winner, and reset board
+f998618 was Anand Ravichandran, 31 seconds ago, message: Explains code for interface with winner, log of past winners, game instructions, and credits
+c49ebc5 was Anand Ravichandran, 23 minutes ago, message: Added explanations for winning condition algorithms
+f472b30 was Anand Ravichandran, 2 hours ago, message: Display the message indicating the winner, and reset board
 615d86d was Anand Ravichandran, 2 hours ago, message: Create spaces for board and set up the top
 a312bab was Anand Ravichandran, 5 hours ago, message: testing this
 963828f was Aravind Bharathy, 3 months ago, message: Update README.md
