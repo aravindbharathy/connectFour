@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
+//hi there
 int top[]={6,6,6,6,6,6,6},count;
 char a[7][7];
 
