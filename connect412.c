@@ -1,4 +1,5 @@
 // CONNECT FOUR
+//Edited by Anand Ravichandran
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -249,25 +250,25 @@ int right(int x, int y, char z)		//to check right diagonal if there is a winning
 int win(int x)		//to display the winning counter
 {
 	char z=a[top[x]+1][x];
-	if(left(top[x]+1,x,a[top[x]+1][x])==4)
+	if(left(top[x]+1,x,a[top[x]+1][x])==4)		//check winning condition of left diagonals
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
 		return 1;
 	}
-	else if(right(top[x]+1,x,a[top[x]+1][x])==4)
+	else if(right(top[x]+1,x,a[top[x]+1][x])==4)    //check winning condition of right diagonals
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
 		return 1;
 	}
-	else if(vert(top[x]+1,x,a[top[x]+1][x])==4)
+	else if(vert(top[x]+1,x,a[top[x]+1][x])==4)     //check winning condition of 4 consecutive in a column
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
 		return 1;
 	}
-	else if(horz(top[x]+1,x,a[top[x]+1][x])==4)
+	else if(horz(top[x]+1,x,a[top[x]+1][x])==4)     //check winning condition of 4 consecutive in a row
 	{
 		display(4);
 		printf("\n\t\t\t      %c WINS!!!\n",z);
@@ -282,35 +283,35 @@ int win(int x)		//to display the winning counter
 	
 void start()		//game play
 {
-	int d=0,n,v;
+	int d=0,n,v;			
 	init();
-	while(d<49)
+	while(d<49)			// d indicates how many turns are possible
 	{
 		display(0);
 		printf("\nColumn: ");
-		scanf("%d",&n);
+		scanf("%d",&n);		//looks for keyboard input
 		
-		if((n>=0 && n<=6) && (top[n]>=0))
+		if((n>=0 && n<=6) && (top[n]>=0)) //goes through which values in the top row are available
 		{
-			if(d%2==0)
+			if(d%2==0)	//cond statement which checks value of every other player’s turn
 			{
-				put(n,'X');
+				put(n,'X');   //give X pieces to one player
 			}
 			else
 			{
-				put(n,'O');
+				put(n,'O');   //player 2 gets O pieces
 			}
 			d++;
 		}
 		else
-		{ printf("\n Invalid Input!!!\n"); }
+		{ printf("\n Invalid Input!!!\n"); } //no other characters are accepted
 		if(win(n)) { break; }
 	}
 
-	printf("\n\t\t\t |m|_ GaMe OvEr _|m| \n\n\n");
+	printf("\n\t\t\t |m|_ GaMe OvEr _|m| \n\n\n");   //if there’s a winner, break from sequence
 	if (count==4)
 	{
-		FILE *ptr=fopen("score.txt","a+");
+		FILE *ptr=fopen("score.txt","a+");   //open new page to enter winner’s credentials
 		char player[30];
 		printf("\n Enter Winner's Name: ");
 		scanf("%s",player);
@@ -319,7 +320,7 @@ void start()		//game play
 		fclose(ptr);
 	}
 	else 
-		printf("\n\t\t\t Game Draw!!!\n");
+		printf("\n\t\t\t Game Draw!!!\n");    //if all 49 turns expire without any wins, draw is announced
 	system("sleep 3");
 	menu();
 }
@@ -334,7 +335,7 @@ void play()		//instruction file
 {
 	system("clear");
 	char x;
-	FILE *ptr;
+	FILE *ptr;				//show where the instructions are
 	ptr=fopen("play.txt","r");
 	printf("\n\t\t\t HOW TO PLAY");
 	printf("\n\t\t\t --- -- ----\n\n");
@@ -342,25 +343,25 @@ void play()		//instruction file
 	{
 		printf("%c",fgetc(ptr));
 	}
-	printf("\n\n Return Any Key For Main Menu");
-	scanf(" %c",&x);
+	printf("\n\n Return Any Key For Main Menu");	//exit instruction page
+	scanf(" %c",&x);			//get user input
 	menu();
 }
 
 void high()		//hall of fame file
 {
-	system("clear");
+	system("clear");		//check next page for high scores
 	char x;
 	FILE *ptr;
 	ptr=fopen("score.txt","r");
-	printf("\n\t\t\t HALL OF FAME");
+	printf("\n\t\t\t HALL OF FAME”);//display credentials of winers
 	printf("\n\t\t\t ~~~~ ~~ ~~~~\n\n");
 	while(!feof(ptr))
 	{
 		printf("%c",fgetc(ptr));
 	}
 	printf("\n\n Return Any Key For Main Menu\n");
-	scanf(" %c",&x);
+	scanf(" %c”,&x);		//get user input for next instruction
 	system("clear");
 	menu();
 }
@@ -368,7 +369,7 @@ main()
 {
 	int u;
 	char s[]="FOUR IN A ROW";
-	for(u=0;u<=strlen(s);u++)
+	for(u=0;u<=strlen(s);u++)		//display game tite
 	{
 		printf("\t\t\t%.*s\n",u,s);
 		system("sleep 0.5");		
@@ -383,16 +384,16 @@ void menu()		//menu options
 {
 	int i;
 	system("clear");
-	printf("\n\t\t\tFOUR IN A ROW");
+	printf("\n\t\t\tFOUR IN A ROW");   //initiate the first lines of the main menu
 	printf("\n\t\t\t==== == = ===");
-	printf("\n1.Start Game\n2.How to Play\n3.High Scores\n4.Exit\nEnter your choice:");
+	printf("\n1.Start Game\n2.How to Play\n3.High Scores\n4.Exit\nEnter your choice:");  //gives choices to the user for which valid input to pick
 	scanf("%d",&i);
 	switch(i)
 	{
-		case 1: init(); start();break;
-		case 2: play(); break;
-		case 3: high(); break;
-		case 4: credits(); exit(0); break;
+		case 1: init(); start();break;		//only 4 different possible valid entries
+		case 2: play(); break;			//start game
+		case 3: high(); break;			//check high scores
+		case 4: credits(); exit(0); break;	//who created code
 		default: printf(" \nInvalid Input!\n"); system("sleep 2");
 				menu();
 	}
