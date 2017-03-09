@@ -2,29 +2,30 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-//hi there
-int top[]={6,6,6,6,6,6,6},count;
-char a[7][7];
 
-void menu();
+
+int top[]={6,6,6,6,6,6,6},count; //initialize array to hold values of every spot in top row
+char a[7][7]; //7x7 matrix initialized to use for sweeping 
+
+void menu(); //calls menu function at the end of this page
 
 void display(int k)		//to display the grid
 {
-	int i,j,u=0;
+	int i,j,u=0;   
 	system("clear");
 	printf("\n\t\t\t    FOUR IN A ROW ");
 	printf("\n\t\t\t    ==== == = === \n\t\t");
-	for(i=0; i<7; ++i)
-	printf("   %d ",i);
+	for(i=0; i<7; ++i)    //initiates loop for making grid
+	printf("   %d ",i);   //creates 7 spaces
 	printf("\n");
-	if(k<4)
+	if(k<4)  // k represents the number of tiles in a row
 	{
-		for(i=0; i<7; ++i)
+		for(i=0; i<7; ++i) 
 		{
 			printf("\t\t|");
-			for(j=0; j<7; ++j)
+			for(j=0; j<7; ++j) //continues filling up the grid with pieces
 			{
-				printf("| %c |",a[i][j]);
+				printf("| %c |",a[i][j]);  //updates grid
 			}
 			printf("|\n");
 		}
@@ -33,11 +34,11 @@ void display(int k)		//to display the grid
 	{
 		while(u<=10)		
 		{
-			system("clear");
-			printf("\n\t\t\t    FOUR IN A ROW ");
+			system("clear"); //remove the grid
+			printf("\n\t\t\t    FOUR IN A ROW "); //display win message
 			printf("\n\t\t\t    ==== == = === \n\t\t");
 			for(i=0; i<7; ++i)
-			printf("   %d ",i);
+			printf("   %d ",i); //create 7 new spaces 
 			printf("\n");
 
 			if(u%2==0)
